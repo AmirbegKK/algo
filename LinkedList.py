@@ -41,8 +41,8 @@ class Llist:
         el.next = node
 
     def remove(self, node):
-        while self.head.data == node.data:
-            self.head = self.head.next
+        # while self.head.data == anode.data:
+        #     self.head = self.hed.next
 
         prev = self.head
         cur = self.head.next
@@ -128,9 +128,6 @@ def kth_to_last_fast(node: Node, k: int):
 
 
 if __name__ == '__main__':
-    linked_list_ = Llist(['1', '2', '3', '4', '5', '3'])
+    linked_list_ = Llist(['1','1','1', '2', '3', '4', '5', '3'])
+    linked_list_.remove(Node('3'))
     print(linked_list_)
-
-
-    print(kth_to_last_optimized(linked_list_.head, 3, IntWrapper(0)))
-    print(kth_to_last_fast(linked_list_.head, 3))
