@@ -95,10 +95,42 @@ def kth_to_last_naive(node: Node, k: int, length: int):
         return n
     return data
 
+class IntWrapper:
+    def __init__(self, value):
+        self.value = value
+
+
+def kth_to_last_optimized(node: Node, k: int, index_from_last: IntWrapper):
+    if node is None:
+        return None
+
+    nd = kth_to_last_optimized(node.next, k, index_from_last)
+    index_from_last.value += 1
+    if index_from_last.value == k:
+        return node
+    return nd
+
+def kth_to_last_fast(node: Node, k: int):
+    if node is None:
+        return
+
+    first_pointer = node
+    second_pointer = node
+    for _ in range(k):
+        second_pointer = second_pointer.next
+
+    while second_pointer is not None:
+        first_pointer = first_pointer.next
+        second_pointer = second_pointer.next
+    return first_pointer
+
+
+
 
 if __name__ == '__main__':
     linked_list_ = Llist(['1', '2', '3', '4', '5', '3'])
     print(linked_list_)
 
 
-    print(kth_to_last_naive(linked_list_.head, 3, 0))
+    print(kth_to_last_optimized(linked_list_.head, 3, IntWrapper(0)))
+    print(kth_to_last_fast(linked_list_.head, 3))
