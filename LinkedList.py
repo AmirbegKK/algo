@@ -3,6 +3,9 @@ class Node:
         self.data = data
         self.next = None
 
+    def __str__(self):
+        return f'{self.data} -> {self.next}'
+
 
 class Llist:
     def __init__(self, nodes):
@@ -60,7 +63,7 @@ def remove_duplicates_naive(linked_list):
         else:
             node_values.add(elem.data)
 
-def remove_duplicates_fast(linked_list):
+def remove_duplicates_fast(linked_list: Llist):
     current_node = linked_list.head
     while current_node is not None:
         runner_node = current_node
@@ -73,9 +76,29 @@ def remove_duplicates_fast(linked_list):
         current_node = current_node.next
 
 
+def kth_to_last_naive(node: Node, k: int, length: int):
+    length += 1
+    if node.next is None:
+        if k == 0:
+            return node
+        if k > length:
+            return
+        return 0
+
+    data  = kth_to_last_naive(node.next, k, length)
+    if data is None:
+        return
+    if not isinstance(data, Node):
+        n = data + 1
+        if n == k:
+            return node
+        return n
+    return data
+
+
 if __name__ == '__main__':
     linked_list_ = Llist(['1', '2', '3', '4', '5', '3'])
     print(linked_list_)
 
 
-    remove_duplicates_fast(linked_list_)
+    print(kth_to_last_naive(linked_list_.head, 3, 0))
