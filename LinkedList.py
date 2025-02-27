@@ -124,10 +124,63 @@ def kth_to_last_fast(node: Node, k: int):
         second_pointer = second_pointer.next
     return first_pointer
 
+def partition_around_x(linked_list: Llist, x: Node) -> Llist:
+    """
+    Implementation of algorithm to partition linked list around a value x
+    such that all nodes with value less or equal to x come before nodes with value greater than x
+
+    :param linked_list:
+    :param x:
+    :return:
+    """
+
+    node = linked_list.head
+    left_part = None
+    right_part = None
+    while node is not None:
+        if node.data <= x.data:
+            if left_part is None:
+                left_part = Llist([node.data])
+            else:
+                left_part.add_last(Node(node.data))
+        else:
+            if right_part is None:
+                right_part = Llist([node.data])
+            else:
+                right_part.add_last(Node(node.data))
+        node = node.next
+
+    left_part.add_last(right_part.head)
+    return left_part
+
+
+def _sum_of_digits(linked_list1: Llist, linked_list2: Llist):
+    num1 = ''
+    num2 = ''
+
+    node1 = linked_list1.head
+    node2 = linked_list2.head
+
+    while node1 is not None:
+        num1 = node1.data + num1
+        node1 = node1.next
+
+    while node2 is not None:
+        num2 = node2.data + num2
+        node2 = node2.next
+
+    num = str(int(num1) + int(num2))
+
+    return Llist([elem for elem in num[::-1]])
+
+
 
 
 
 if __name__ == '__main__':
-    linked_list_ = Llist(['1','1','1', '2', '3', '4', '5', '3'])
-    linked_list_.remove(Node('3'))
-    print(linked_list_)
+    linked_list_ = Llist(['7','1','6'])
+    linked_list_2 = Llist(['5','9','2'])
+    # linked_list_.remove(Node('3'))
+    # print(linked_list_)
+    # print(partition_around_x(linked_list_, Node('3')))
+    print(_sum_of_digits(linked_list_, linked_list_2))
