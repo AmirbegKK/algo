@@ -173,14 +173,22 @@ def _sum_of_digits(linked_list1: Llist, linked_list2: Llist):
 
     return Llist([elem for elem in num[::-1]])
 
-
+def circular_node(node):
+    next_ = node.next
+    while node is not None:
+        while next_ is not None:
+            if next_.data == node.data:
+                return next_.data
+            next_ = next_.next
+        node = node.next
 
 
 
 if __name__ == '__main__':
-    linked_list_ = Llist(['7','1','6'])
-    linked_list_2 = Llist(['5','9','2'])
+    linked_list_ = Llist(['7','1','6','7','2'])
+    # linked_list_2 = Llist(['5','9','2'])
     # linked_list_.remove(Node('3'))
     # print(linked_list_)
     # print(partition_around_x(linked_list_, Node('3')))
-    print(_sum_of_digits(linked_list_, linked_list_2))
+    # print(_sum_of_digits(linked_list_, linked_list_2))
+    print(circular_node(linked_list_.head))
